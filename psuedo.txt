@@ -1,0 +1,66 @@
+START Program
+
+1. Initialize Variables
+    - Create an empty list `players` to store player data.
+    - Create an empty list `raceResults` to store admin-inputted race results.
+    - Create an empty list `leaderboard` to store player names and scores.
+
+2. Admin Input (Race Results First)
+    - PROMPT the admin to input actual race results:
+        a. FOR positions 1 to 20:
+            - PROMPT the admin to enter the rider for each position.
+            - STORE the race results in `raceResults` list as:
+              {position: riderName}
+
+3. Player Predictions
+    - FOR each player (e.g., Player 1, Player 2, Player 3):
+        a. PROMPT the player to enter their predictions:
+            - Enter 1st place rider.
+            - Enter 2nd place rider.
+            - Enter 3rd place rider.
+            - Enter wildcard position (5-20).
+            - Enter wildcard rider.
+        b. STORE the player's predictions in `players` list as:
+            {
+                "name": playerName,
+                "predictions": {
+                    "1st": firstPlaceRider,
+                    "2nd": secondPlaceRider,
+                    "3rd": thirdPlaceRider,
+                    "wildcardPosition": wildcardPosition,
+                    "wildcardRider": wildcardRider
+                },
+                "score": 0
+            }
+        c. CALCULATE Player’s Score:
+            i. SET `score` = 0
+            ii. Compare player predictions to race results:
+                - IF player's 1st place rider matches raceResults[1]:
+                    ADD 25 points to `score`.
+                - IF player's 2nd place rider matches raceResults[2]:
+                    ADD 23 points to `score`.
+                - IF player's 3rd place rider matches raceResults[3]:
+                    ADD 21 points to `score`.
+                - IF player's wildcard position and rider match:
+                    - IF (wildcardPosition == adminInputPosition AND wildcardRider == raceResults[wildcardPosition]):
+                        ADD 50 points to `score`.
+            iii. STORE `score` back in the player's dictionary.
+        d. ADD the player’s name and score to `leaderboard` as:
+           {"name": playerName, "score": totalScore, "wildcardPosition": wildcardPosition}
+
+4. Leaderboard Calculation
+    - SORT `leaderboard` by:
+        i. Descending `score`.
+        ii. Ascending `wildcardPosition` for tie-breakers.
+
+5. Display Results (After Third Player Submission)
+    - PRINT each player's score from `leaderboard`.
+    - PRINT the podium:
+        a. Top 3 players from `leaderboard`.
+
+6. Edge Case: Tie-Breaker
+    - IF two or more players have the same score:
+        a. The player with the lower wildcard position wins the tie-breaker.
+        b. IF wildcard positions are also the same, players remain tied.
+
+END Program
